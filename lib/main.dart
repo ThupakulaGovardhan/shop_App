@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_application_20/providers/cart.dart';
 import 'package:flutter_application_20/providers/orders.dart';
 import 'package:flutter_application_20/screens/splash_screen.dart';
+import 'package:flutter_application_20/screens/test.dart';
 import 'providers/auth.dart';
 import 'package:flutter_application_20/screens/cart_screen.dart';
 import 'package:flutter_application_20/screens/edit_product_screen.dart';
@@ -59,15 +60,21 @@ class MyApp extends StatelessWidget {
         fontFamily: 'Lato',
 
       ),
-      home: auth.isAuth 
-      ? ProductsOverViewScreen() 
+      home: 
+      // TestScreen(),
+      auth.isAuth?AuthScreen()
+     // ? ProductsOverViewScreen()
+     
       : FutureBuilder(
         future: auth.tryAutoLogin(),
         builder: (ctx, authResultSnapshot) =>
          authResultSnapshot.connectionState == 
-         ConnectionState.waiting ?
-          SplashScreen():  
-        AuthScreen(),
+         ConnectionState.waiting     ? SplashScreen() 
+     
+      // : AuthScreen(),
+       : ProductsOverViewScreen(),
+        
+        
       ),
       routes: {
       ProductDetailScreen .routeName: (ctx) => ProductDetailScreen(), 
@@ -75,6 +82,9 @@ class MyApp extends StatelessWidget {
       OrdersScreen.routeName: (ctx) => OrdersScreen(),
       UserProductsScreen.routeName: (ctx) => UserProductsScreen(),
       EditProductScreen.routeName: (ctx) => EditProductScreen(),
+       ProductsOverViewScreen.routeName: (ctx) => ProductsOverViewScreen(),
+      AuthScreen.routeName: (ctx) => AuthScreen(),
+     SplashScreen.routeName: (ctx) => SplashScreen(),
       },
     ),
     ), 
